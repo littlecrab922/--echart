@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+        <title>ECharts</title>
+        <script src="echarts.js"></script>
+        <script src="world.js"></script>
+        <!--<script src="jquery.js"></script>-->
+    </head>
+    <body>
+        <div id="worldmap" style="width:1000px; height:1000px;margin: auto;"></div>
+        <script>
+            // 绘制图表
+            var worldChart = echarts.init(document.getElementById('worldmap'));
+            //var nameComparison={};
+            var dataMap=[
+              {name:"Albania",value: 1970},
+              {name:"Antigua and Barb",value: 11},
+              {name:"Argentina",value: 82219},
+              {name:"Armenia",value: 1905},
+              //{name:"Aruba",value: 101},
+              {name:"Australia",value: 70111},
+              {name:"Austria",value: 50073},
+              {name:"Azerbaijan",value: 1656},
+              {name:"Bahamas",value: 93},
+              {name:"Bahrain",value: 463},
+              {name:"Barbados",value: 177},
+              {name:"Belarus",value: 59892},
+              {name:"Belgium",value: 62761},
+              {name:"Belize",value: 348},
+              {name:"Bosnia and Herze",value: 318},
+              {name:"Brazil",value: 226613},
+              {name:"Bulgaria",value: 36388},
+              {name:"Cape Verde",value: 42},
+              {name:"Canada",value: 107561},
+              {name:"Chile",value: 40895},
+              {name:"Colombia",value: 53080},
+              {name:"Costa Rica",value: 6792},
+              {name:"Croatia",value: 18429},
+              {name:"Cuba",value: 41418},
+              {name:"Cyprus",value: 412},
+              {name:"Czech Rep",value: 43687},
+              {name:"Denmark",value: 15297},
+              {name:"Dominica",value: 0},
+              {name:"Ecuador",value: 20660},
+              {name:"El Salvador",value: 11683},
+              {name:"Estonia",value: 7034},
+              {name:"Fiji",value: 304},
+              {name:"Finland",value: 33677},
+              {name:"France",value: 329127},
+              {name:"Georgia",value: 3224},
+              {name:"Germany",value: 291262},
+              {name:"Greece",value: 12368},
+              {name:"Grenada",value: 38},
+              {name:"Guatemala",value: 8149},
+              {name:"Guyana",value: 3426},
+              {name:"Hungary",value: 73891},
+              {name:"Iceland",value: 1108},
+              {name:"Ireland",value: 12574},
+              {name:"Israel",value: 11294},
+              {name:"Italy",value: 132060},
+              {name:"Jamaica",value: 184},
+              {name:"Japan",value: 806902},
+              {name:"Kazakhstan",value: 101546},
+              {name:"Kiribati",value: 53},
+              {name:"Kuwait",value: 966},
+              {name:"Kyrgyzstan",value: 13090},
+              {name:"Latvia",value: 12770},
+              {name:"Lithuania",value: 28039},
+              {name:"Luxembourg",value: 1958},
+              //{name:"Maldives",value: 20},
+              {name:"Malta",value: 585},
+              {name:"Mauritius",value: 3894},
+              {name:"Mexico",value: 111139},
+              {name:"Mongolia",value: 423},
+              {name:"Montenegro",value: 472},
+              {name:"Netherlands",value: 50833},
+              {name:"New Zealand",value: 14383},
+              {name:"Nicaragua",value: 2013},
+              {name:"Norway",value: 16992},
+              {name:"Oman",value: 33},
+              {name:"Panama",value: 3483},
+              {name:"Paraguay",value: 4783},
+              {name:"Philippines",value: 21330},
+              {name:"Poland",value: 139098},
+              {name:"Portugal",value: 24061},
+              //{name:"Puerto Rico",value: 9043},
+              {name:"Qatar",value: 574},
+              {name:"Korea",value: 261730},
+              {name:"Romania",value: 72777},
+              {name:"Russia",value: 1209742},
+              {name:"Saint Kitts and Nevis",value: 0},
+              {name:"Saint Lucia",value: 230},
+              {name:"Saint Vincent and Grenadines",value: 124},
+              //{name:"San Marino",value: 4},
+              {name:"Serbia",value: 24179},
+              {name:"Seychelles",value: 98},
+              {name:"Singapore",value: 10089},
+              {name:"Slovakia",value: 13437},
+              {name:"Slovenia",value: 10615},
+              {name:"South Africa",value: 7321},
+              {name:"Spain",value: 100202},
+              {name:"Sri Lanka",value: 55641},
+              {name:"Suriname",value: 2166},
+              {name:"Sweden",value: 37795},
+              {name:"Switzerland",value: 26217},
+              {name:"Thailand",value: 110643},
+              {name:"Trinidad and Tobago",value: 4039},
+              {name:"Turkey",value: 10131},
+              {name:"Turkmenistan",value: 8624},
+              {name:"Ukraine",value: 319950},
+              {name:"United Arab Emirates",value: 622},
+              {name:"United Kingdom",value: 136805},
+              {name:"United States",value: 1034013},
+              {name:"Uruguay",value: 13138},
+              {name:"Uzbekistan",value: 34803},
+            ];
+            var schema=[];
+            var option={
+                title:{
+                    //地图显示标题
+                    text:'各国自杀分布',
+                    top:'30px',
+                    left:'left'
+                },
+                visualMap:{
+                    //视觉映射
+                    type:'piecewise',//根据动态数据进行分段设置颜色
+                    left:30,
+                    y:'center',
+                    pieces:[
+                      {min:1000000},
+                      {min:100000,max:400000},
+                      {min:10000,max:100000},
+                      {min:1000,max:10000},
+                      {max:1000}
+                    ],
+                    color:[ '#a50026','#d73027','#74add1', '#4575b4', '#313695'],
+                    text:['High','Low'],
+                    calculable:true
+                },
+                toolbox:{
+                    //工具栏
+                    show:true,
+                    orient:'vertical',//布局垂直
+                    //itemGap:20,//工具栏图标每项之间的间隔
+                    x:'right',
+                    y:'center',
+                    feature:{
+                      //各工具配置项
+                      dataView:{show:true,readOnly:false},//数据视图工具，可编辑后动态更新
+                      restore:{show:true},
+                      saveAsImage:{show:true}
+                    }
+                },
+                tooltip:{
+                    //提示框组件
+                    show:true,
+                    trigger:'item',
+                    showDelay:0,
+                    transitionDuration:0.4,
+                    formatter:''
+                },
+                series:[{
+                    name:'自杀人数',
+                    type:'map',//选择图表类型
+                    mapType:'world',//地图类型：世界地图
+                    roam:true,//鼠标移动缩放
+                    top:'10%',
+                    //mapLocation:{y:100},
+                    data:dataMap,//绑定数据
+                    //nameMap:nameComparison,
+                    //symbolSize:12,
+                    itemStyle:{
+                      normal:{
+                        label:{
+                          show:false,
+                          textStyle:{
+                            color:"rgb(249,249.249)"
+                          }
+                        }
+                      },
+                      emphasis:{
+                        //图片在高亮状态下的样式
+                        label:{show:true}
+                      }
+                    },
+                    top:"3%"
+                }]
+            };
+            worldChart.setOption(option);
+            worldChart.on('mouseover',function(params){
+              var dataIndex = params.dataIndex;
+              console.log(params);
+            });
+        </script>
+    </body>
+</html>
